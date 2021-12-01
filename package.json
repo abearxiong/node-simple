@@ -1,10 +1,40 @@
 {
-  "name": "express-simple",
+  "name": "@abear/hnode-tools",
   "version": "0.0.1",
   "description": "",
   "main": "index.js",
+  "bin": {
+    "hnode-tools": "./bin/hnode-tools.js"
+  },
+  "homepage": "https://github.com/abearxiong/node-simple",
+  "bugs": {
+    "url": "https://github.com/abearxiong/node-simple/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/abearxiong/node-simple"
+  },
+  "files": [
+    "lib",
+    "bin"
+  ],
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "npm run webpack:dev",
+    "dev": "NODE_ENV=development nodemon  -e  ts,tsx  --exec ts-node  src/app.ts",
+    "dev:dist": "NODE_ENV=development nodemon  -e  ts --exec ts-node  dist/app.js",
+    "dev:graphql": "NODE_ENV=development nodemon  -e  ts,tsx  --exec ts-node  src/graphql.ts",
+    "serve": "node dist/app.js",
+    "pm2": "pm2 start process.json",
+    "prepm2": "npm run build",
+    "build": "tsc",
+    "watch:ts": "tsc -watch",
+    "test": "cross-env NODE_ENV=test jest --runInBand --forceExit --colors",
+    "test2": "cross-env NODE_ENV=test jest --runInBand --detectOpenHandles --colors",
+    "webpack:dev": "cross-env ENV=development webpack --mode=development --watch",
+    "webpack:build": "cross-env ENV=production webpack --mode=production",
+    "build:test": "cross-env ENV=test webpack --mode=production",
+    "build:prod": "cross-env ENV=production webpack --mode=production",
+    "eslint:fix": "eslint --fix --ext .ts src/"
   },
   "keywords": [],
   "author": "abearxiong",
@@ -15,7 +45,7 @@
     "@types/lodash": "^4.14.177",
     "babel-core": "^6.26.3",
     "babel-preset-minify": "^0.5.1",
-    "chalk": "^4.1.2",
+    "chalk": "^5.0.0",
     "cors": "^2.8.5",
     "crypto-js": "^4.1.1",
     "dayjs": "^1.10.7",
@@ -23,21 +53,22 @@
     "got": "^11.8.3",
     "graphql": "^16.0.1",
     "influx": "^5.9.2",
+    "inquirer": "^8.2.0",
     "json5": "^2.2.0",
     "jsonwebtoken": "^8.5.1",
     "lodash": "^4.17.21",
     "mathjs": "^10.0.0",
     "mockjs": "^1.1.0",
     "module-alias": "^2.2.2",
-    "mongoose": "^6.0.13",
+    "mongoose": "^6.0.14",
     "mongoose-serial": "^1.0.4",
     "mqtt": "^4.2.8",
     "mysql2": "^2.3.3",
-    "node-schedule": "^2.0.0",
+    "node-schedule": "^2.1.0",
     "nodemon": "^2.0.15",
     "pm2": "^5.1.2",
     "querystring": "^0.2.1",
-    "redis": "^3.1.2",
+    "redis": "^4.0.0",
     "sequelize": "^6.11.0",
     "socket.io": "^4.4.0",
     "socket.io-client": "^4.4.0",
@@ -50,6 +81,7 @@
     "@types/got": "^9.6.12",
     "@types/jest": "^27.0.3",
     "@types/jsonwebtoken": "^8.5.6",
+    "@types/node": "^16.11.11",
     "@types/redis": "^2.8.32",
     "@types/superagent": "^4.1.13",
     "@types/supertest": "^2.0.11",
@@ -57,16 +89,19 @@
     "commander": "^8.3.0",
     "copy-webpack-plugin": "^10.0.0",
     "cross-env": "^7.0.3",
-    "jest": "^27.3.1",
+    "jest": "^27.4.3",
     "supertest": "^6.1.6",
     "ts-jest": "^27.0.7",
     "ts-loader": "^9.2.6",
     "typescript": "^4.5.2",
-    "webpack": "^5.64.3",
+    "webpack": "^5.64.4",
     "webpack-cli": "^4.9.1",
     "webpack-node-externals": "^3.0.0"
   },
   "_moduleAliases": {
     "@/app": "src/app"
+  },
+  "publishConfig": {
+    "registry": "https://registry.npmjs.org/"
   }
 }
